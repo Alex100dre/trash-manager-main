@@ -1,0 +1,6 @@
+[submodule "api"]
+	path = api
+	url = git@github.com:Alex100dre/trash-manager-api.git
+[submodule "app"]
+	path = app
+	url = git@github.com:Alex100dre/trash-manager-webapp.git
