@@ -1,0 +1,56 @@
+version: "3.9"
+
+services:
+  db:
+    container_name: db
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: root
+    volumes:
+      - ./db/data:/var/lib/postgresql/data
+      - ./db/docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - backend
+  adminer:
+    container_name: adminer
+    image: adminer
+    ports:
+      - 8080:8080
+    networks:
+      - backend
+    depends_on:
+      - db
+  api:
+    container_name: api
+    build:
+      context: ./api
+      dockerfile: Dockerfile.dev # on move to prod, update this
+    volumes:
+      - /api/node_modules
+      - ./api:/api
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    networks:
+      - backend
+      - frontend
+  app:
+    container_name: app
+    build:
+      context: ./app
+      dockerfile: Dockerfile.dev # on move to prod, update this
+    volumes:
+      - /app/node_modules
+      - ./app:/app
+    ports:
+      - "8000:3000"
+    networks:
+      - frontend
+networks:
+  frontend:
+  backend:
+    driver: bridge

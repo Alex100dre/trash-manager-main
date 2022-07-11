@@ -1,0 +1,8 @@
+# Mac
+.DS_Store
+
+# jetbrains
+.idea
+
+# database
+/db/data
