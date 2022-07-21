@@ -25,6 +25,13 @@ services:
       - db
   api:
     container_name: api
+    environment:
+      DB_USER: admin
+      DB_PASSWORD: root
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DB_NAME: tm
+      DB_SCHEMA: public
     build:
       context: ./api
       dockerfile: Dockerfile.dev # on move to prod, update this
@@ -40,6 +47,7 @@ services:
       - frontend
   app:
     container_name: app
+    stdin_open: true
     build:
       context: ./app
       dockerfile: Dockerfile.dev # on move to prod, update this
