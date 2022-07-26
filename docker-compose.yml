@@ -26,12 +26,15 @@ services:
   api:
     container_name: api
     environment:
+      PORT: 3000
       DB_USER: admin
       DB_PASSWORD: root
-      DB_HOST: localhost
+      DB_HOST: db
       DB_PORT: 5432
       DB_NAME: tm
       DB_SCHEMA: public
+    env_file:
+        - .env
     build:
       context: ./api
       dockerfile: Dockerfile.dev # on move to prod, update this
