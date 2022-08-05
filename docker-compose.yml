@@ -33,6 +33,7 @@ services:
       DB_PORT: 5432
       DB_NAME: tm
       DB_SCHEMA: public
+      APP_URL: http://localhost:8000/
     env_file:
         - .env
     build:
